@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Virement</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+	<link rel="stylesheet" type="text/css" href="../_js/jquery-ui-1.11.4.custom/jquery-ui.theme.css"/>
+	<link rel="stylesheet" type="text/css" href="../_css/styles.css"/>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="virement">
+    <div class="page-container virement">
+        <div class="hide--page--virement"></div>
+        <header>
+            <span class="heure">09:41</span><span class="date">Jeudi 1er Octobre 2015</span>
+        </header>
+        
+        <main>
+           <h1>Nouveau virement</h1>
+            <ul class="bread">
+                <li class="bread--point active" id="0"><span>Montant</span><div class="check--icon"></div></li>
+                <li class="bread--point" id="1"><span>Bénéficiaire</span><div class="check--icon"></div></li>
+                <li class="bread--point" id="2"><span>Communication</span><div class="check--icon"></div></li>
+                <li class="bread--point" id="3"><span>Date</span><div class="check--icon"></div></li>
+            </ul>
+            
+            <form class="all--steps" action="ok.html">
+                <section class="step0">
+                    <label for="montant">Quel est le montant?</label><br>
+                    <input type="number" id="montant" name="montant" class="montant--input" value="">
+                    <span> €</span>
+                </section>
+                
+                <section class="hidden--section step1">
+                    <label>Qui est le bénéficiaire ?</label><br>
+                        <ul class="benef">
+                            <label for="laura-arnold">
+                                <input type="radio" name="choose-benef" id="laura-arnold" value="laura-arnold"/>
+                                <span>Laura <br>Arnold</span>
+                            </label>
+                            <label for="alice-perez">
+                                <input type="radio" name="choose-benef" id="alice-perez" value="alice-perez"/>
+                                <span>Alice <br>Perez</span>
+                            </label>
+                            <label for="jonathan-walsh">
+                                <input type="radio" name="choose-benef" id="jonathan-walsh" value="jonathan-walsh"/>
+                                <span>Jonathan <br>Walsh</span>
+                            </label>
+                            <label for="marie-vasquez">
+                                <input type="radio" name="choose-benef" id="marie-vasquez" value="marie-vasquez"/>
+                                <span>Marie <br>Vasquez</span>
+                            </label>
+                            <label for="paul-castro">
+                                <input type="radio" name="choose-benef" id="paul-castro" value="paul-castro"/>
+                                <span>Paul <br>Castro</span>
+                            </label>
+                            <label for="carl-little">
+                                <input type="radio" name="choose-benef" id="carl-little" value="carl-little"/>
+                                <span>Carl <br>Little</span>
+                            </label>
+                            <label for="new-benef" class="add--benef--button">
+                                <input type="radio" name="choose-benef" id="new-benef" value="new-benef"/>
+                                <span>Nouveau bénéficiaire</span>
+                                <div class="new--benef--icon"></div>
+                            </label>
+                        </ul>
+                        <div class="add--benef">
+                            <div class="input--account--container">
+                                <label for="benef-account">Numéro de compte</label>
+                                <input class="text" type="text" name="benef-account" id="benef-account" value=""/>
+                            </div>
+                            <div class="input--name--container">
+                                <label for="benef-name">Nom du bénéficiaire</label>
+                                <input class="text" type="text" name="benef-name" id="benef-name" value=""/>
+                            </div>
+                            <div class="input--save--container">
+                                <input class="text" type="checkbox" name="save-benef" id="save-benef" value="save-benef"/>
+                                <label for="save-benef"><span></span>Enregistrer ce bénéficiare</label>
+                            </div>
+                            
+                        </div>
+                </section>
+                
+                <section class="hidden--section step2">
+                    <label for="com">Quelle est la communication ?</label><br>
+                    <div class="communication--container">
+                        <ul class="choose-com-type">
+                            <li class="selected-com-type select-libre"><span>Libre</span></li>
+                            <li class="select-struct"><span>Structurée belge</span></li>
+                            <li class="select-struct-europ"><span>Structurée européenne</span></li>
+                        </ul>
+                        <div class="input--contain">
+                            <span class="struct">+++</span>
+                            <input type="text" id="com-libre" name="communication" class="com--input libre text">
+                            <input type="text" id="com-struc" name="communication" class="com--input struct text">
+                            <span class="struct--europ">RF</span>
+                            <input type="text" id="struc-euro" name="communication" class="com--input struct--europ text">
+                            <span class="struct">+++</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="hidden--section step3">
+                    <label>Quand envoyer le virement ?</label><br>
+                    <div class="choose--when">
+                        <span class="virement--later">Choisir une date</span>
+                        <div id="datepicker"></div>
+                        <span class="virement--now">Maintenant</span>
+                    </div>
+                </section>
+                <section class="submit hidden--section step4">
+                    <label>Récapitulatif</label><br>
+                    <ul class="info--virement">
+                        <li><span class="info--title">Montant</span><span class="recap--montant"></span></li>
+                        <li><span class="info--title">Bénéficiaire</span><span class="recap--benef"></span></li>
+                        <li><span class="info--title">Communication</span><span class="recap--com"></span></li>
+                        <li><span class="info--title">Date</span><span class="recap--date"></span></li>
+                    </ul>
+                </section>
+            </form>
+            <ul class="button--virement">
+                <li class="cancel"><a href="_content/autres-actions.html"><span>Annuler</span></a></li>
+                <li class="next"><button><span>Suivant</span></button></li>
+                <li class="prev"><button><span>Retour</span></button></li>
+            </ul>
+        </main>
+    </div>
+    <script src="../_js/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+	<script src="../_js/jquery-1.11.3.min.js"></script>
+    <script src="../_js/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <script src="../_js/jquery-ui-1.11.4.custom/jquery.ui.datepicker-fr.js" type="text/javascript"></script>
+    <script src="../_js/main.js"></script>
+</body>
+</html>

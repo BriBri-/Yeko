@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Yeko Bank</title>
+	<link rel="stylesheet" type="text/css" href="_js/jquery-ui-1.11.4.custom/jquery-ui.theme.css"/>
+	<link rel="stylesheet" href="_css/fonts.css">
+	<link rel="stylesheet" href="_css/styles.css">
+	<meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+	<a href="_content/carte.html" id="retraitCarte" style="position: absolute;top: 0;left: 0;z-index: 200; width: 40px; height: 40px;"></a>
+	<div class="page-container">
+		<a href="_content/pin.html" style="position: absolute;top: 0;left: 0;bottom: 0;right: 0;z-index: 100;"></a>
+		<p id="slogan">La banque en toute simplicité</p>
+		<div id="container">
+			<div id="yeko_logo_anim">
+				<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				viewBox="0 0 568.5 300" enable-background="new 0 0 568.5 300" xml:space="preserve">
+					<polygon fill="transparent" stroke="#70C1DF" stroke-width="5" stroke-miterlimit="10" points="13.478,62.5 47.018,62.5 73.369,100.231 
+					97.925,62.5 133.261,62.5 87.5,126.123 87.5,186.5 58.5,186.5 58.5,126.722 " id="letter_y"/>
+					<polygon fill="transparent" stroke="#70C1DF" stroke-width="5" stroke-miterlimit="10" points="236.5,62.5 164.5,62.5 164.5,186.5 
+					236.5,186.5 236.5,162.5 193.5,162.5 193.5,133.5 236.5,133.5 236.5,109.5 193.5,109.5 193.5,85.5 236.5,85.5 "id="letter_e" />
+					<polygon fill="transparent" stroke="#70C1DF" stroke-width="5" stroke-miterlimit="10" points="277,62.5 310.539,62.5 351.5,112.745 351.5,62.5 380.5,62.5 380.5,186.5 351.5,186.5 351.5,131.513 310.544,181.5 272.209,181.5 325.315,119.205"
+					id="letter_k"/>
+					<path fill="transparent" stroke="#70C1DF" stroke-width="4.9435" stroke-miterlimit="10" d="M478.642,57.646
+					c-36.389,0-65.885,28.423-65.885,63.484c0,35.062,29.496,63.485,65.885,63.485c36.38,0,65.876-28.423,65.876-63.485
+					C544.518,86.068,515.021,57.646,478.642,57.646z M501.419,152.985c-16.984,12.938-41.086,9.86-53.827-6.879
+					c-12.736-16.731-9.288-40.784,7.702-53.717c16.994-12.94,41.1-9.856,53.836,6.876C521.866,115.997,518.418,140.05,501.419,152.985z" id="letter_o"
+					/>
+					<rect x="1.5" y="28.5" fill="none" stroke="#70C1DF" stroke-width="5" id="barre_yeko" stroke-miterlimit="10" width="551" height="14" />
+				</svg>
+				<p id="coupure_disponible_anime">Coupures disponibles :</p>
+				<ul id="coupure_disponible_anime_billet">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<footer class="touch">
+		<div class="solde-bar">
+			<p class="title">Solde 1203€</p>
+		</div>
+		<div class="account">
+			<p class="account-name">Compte courant</p>
+			<p class="account-iban">BE 91 3486 1028 10</p>
+		</div>
+		<a href="#" class="change">Changer<br> de compte</a>
+	</footer>
+	<div class="overlay" style="display: none;">
+		<span class="content">
+			Opération<br>réussie
+		</span>	
+	</div>
+	<script src="_js/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+	<script src="_js/jquery-1.11.3.min.js"></script>
+    <script src="_js/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <script src="_js/jquery-ui-1.11.4.custom/jquery.ui.datepicker-fr.js" type="text/javascript"></script>
+    <script src="_js/fastclick.js" type="text/javascript"></script>
+	<script src="_js/main.js"></script>
+	<script>
+	$(function() {
+		FastClick.attach(document.body);
+	})
+	</script>
+	<script>
+		$(function() {
+			$('footer').hide();
+			$('body').on('click', 'a', function(){
+				var timeSet = 0;
+				var currentLink = $(this).attr('href');
+				console.log('Confirm:',$(this).hasClass('confirmAction'));
+				if ($(this).hasClass('confirmAction')) {
+					overlayConfirm();
+					var timeSet = 3500;
+				};
+				setTimeout(function(){
+					
+					if (currentLink[0] != '#') {
+						$('.page-container').load(currentLink + " .page-container", function() {
+							if (currentLink == "_content/historique.html") {showHistoric()};
+							if (currentLink == "_content/accueil.html") {concoupuresDispo()};
+							if (currentLink == "_content/carte.html") {
+								$('footer').hide();
+								$('.carte h2').text('Merci, '+datetime.finish().toLowerCase()+' !')
+							};
+							if (currentLink == "_content/virement.html") {
+								var currentStep = 0;
+								$('.hidden--section').hide();
+								$('.button--virement .next').css('opacity', '0.4');
+								var virementDate = 'Maintenant';
+		    					var virementCom = $('.input--contain #com-libre');
+		    					var nextButtonHide = false;
+								var windowHeight = $(window).height();
+								$('.hide--page--virement').css('height', windowHeight + 'px');
+								$.datepicker.setDefaults({minDate: 0});
+		    					$('#datepicker').datepicker();
+		    					if($('#datepicker .confirm--date').length == 0) $('#datepicker').append('<span class="confirm--date">Confirmer</span>');
+		    					$('#datepicker .confirm--date').click(function(){
+		    						virementDate = $( "#datepicker" ).val().toLowerCase();
+		    					})
+		    					$('.page-container').on('click','.confirm--virement input', function(){
+							        var currentLink = '_content/autres-actions.html';
+							       	$('.page-container').load('_content/autres-actions.html' + " .page-container");
+							        
+							        
+							    });
+							};
+							if (currentLink == "_content/depot.html") {
+								$('.page-container').on('click','.depot #confirmation #oui', function(){
+							        totalAmount += 230;
+							        addToHistoric('depot', 230);
+							        localStorage.setItem('totalAmount', JSON.stringify(totalAmount));
+							        $(location).attr('href',"ok.html");
+							    });
+							     $('.page-container').on('click','.depot #fini', function(){
+							        $('.depot #deposer' ).addClass( "delete" );
+							        $('.depot #b50 p').replaceWith('<p>1x</p>');
+							        setTimeout(function(){ 
+							            $('.depot #montant' ).removeClass( "hide" ).addClass( "show" );
+							            $('.depot h3').replaceWith('<h3>50 €</h3>');
+							            $('.depot #b50' ).removeClass( "hide" ).addClass( "show" );
+							        },200);
+							        setTimeout(function(){ 
+							            $('.depot h3').replaceWith('<h3>100 €</h3>');
+							            $('.depot #b50 p').replaceWith('<p>2x</p>');
+							        },500);
+
+							        setTimeout(function(){ 
+							            $('.depot h3').replaceWith('<h3>150 €</h3>');
+							            $('.depot #b50 p').replaceWith('<p>3x</p>');
+							        },800);
+
+							        setTimeout(function(){ 
+							            $('.depot h3').replaceWith('<h3>200 €</h3>');
+							            $('.depot #b50 p').replaceWith('<p>4x</p>');
+							        },1100);
+							        setTimeout(function(){ 
+							            $('.depot h3').replaceWith('<h3>220 €</h3>');
+							            $('.depot #b20' ).removeClass( "hide" ).addClass( "show" );
+							        },1400);  
+							        setTimeout(function(){ 
+							            $('.depot h3').replaceWith('<h3>230 €</h3>');
+							            $('.depot #b10' ).removeClass( "hide" ).addClass( "show" );
+							        },1700);
+							        setTimeout(function(){ 
+							            $('.depot h2#confirm').removeClass( "hide" ).addClass( "show" );
+							            $('.depot a#retour').replaceWith('<a id="retour" class="btn--stop" href="_content/autres-actions.html">Non</a>');
+							            $('.depot a#fini').replaceWith('<a id="fini" class="btn--confirm" href="_content/autres-actions.html">Oui</a>');
+							        },2000);
+							    });
+							    
+							};
+							
+						});
+					};
+					
+				}, timeSet);
+				return false;
+			})
+		})
+	</script>
+</body>
+</html>
