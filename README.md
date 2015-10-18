@@ -21,6 +21,11 @@ Moi, Brieuc Mertens, je m'occupait de la gestion du groupe en tant que facilitat
 
 Site de présentation: http://cravatteloic.be/projets/ilab/
 
+Case: https://medium.com/@Briiiieuc/yeko-bank-case-study-86faaeeea88
+
+Borne en ligne: http://oliviapaquay.be/ilab/
+
+
 
 
 
